@@ -57,9 +57,10 @@ const LandingPage = () => {
           flexDirection: "column",
           color: "white",
           textAlign: "center",
+    
         }}
       >
-        <Typography variant="h3" sx={{ fontWeight: "bold" }}>
+        <Typography variant="h3" sx={{ fontWeight: "bold" , color:"t" }}>
           Welcome to SmartServe 🍽️
         </Typography>
         <Typography variant="h6" sx={{ mt: 2, mb: 4 }}>
@@ -102,8 +103,8 @@ const LandingPage = () => {
             <Card sx={{ boxShadow: 3, cursor: "pointer" }} onClick={() => navigate("/menu")}>
               <CardMedia
                 component="img"
-                height="200"
-                image="https://images.unsplash.com/photo-1605478052160-1de0d89f0b2e?auto=format&fit=crop&w=800&q=80"
+                height="300"
+                image="https://marketplace.canva.com/EAGEDq-_tZQ/1/0/1035w/canva-grey-and-beige-minimalist-restaurant-menu-hb5BNMWcQS4.jpg"
                 alt="Customer Menu"
               />
               <CardContent>
@@ -121,8 +122,8 @@ const LandingPage = () => {
             <Card sx={{ boxShadow: 3, cursor: "pointer" }} onClick={() => navigate("/addmenu")}>
               <CardMedia
                 component="img"
-                height="200"
-                image="https://images.unsplash.com/photo-1605478561654-c2f04c0a3d3e?auto=format&fit=crop&w=800&q=80"
+                height="300"
+                image="https://c8.alamy.com/comp/2J63J92/cooking-classes-isolated-cartoon-vector-illustrations-2J63J92.jpg"
                 alt="Add Menu"
               />
               <CardContent>
@@ -140,8 +141,8 @@ const LandingPage = () => {
             <Card sx={{ boxShadow: 3, cursor: "pointer" }} onClick={() => navigate("/orders")}>
               <CardMedia
                 component="img"
-                height="200"
-                image="https://images.unsplash.com/photo-1600891963921-8e4c0de1a9be?auto=format&fit=crop&w=800&q=80"
+                height="300"
+                image="https://upcdn.io/12a1y1C/image/delivery-form.png?f=webp&c=100&q=80&w=1000&h=625&fit=shrink"
                 alt="Order Details"
               />
               <CardContent>
