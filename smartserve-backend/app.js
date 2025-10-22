@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const { sequelize } = require("./models");
 const menuRoutes = require("./routes/menuRoutes");
 const orderRoutes = require("./routes/orderRoutes");
+const path = require("path");
 
 
 const app = express();

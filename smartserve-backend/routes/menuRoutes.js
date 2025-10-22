@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { getAllMenu, addMenuItem } = require("../controllers/menuController");
+const menuController = require("../controllers/menuController");
 const upload = require("../middleware/uploadMiddleware");
 
 // router.get("/", getAllMenu);
