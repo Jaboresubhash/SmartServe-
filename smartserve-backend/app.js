@@ -5,12 +5,14 @@ const { sequelize } = require("./models");
 const menuRoutes = require("./routes/menuRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 
+
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
 app.use("/api/menu", menuRoutes);
 app.use("/api/orders", orderRoutes);
+app.use("/uploads", express.static(path.join(__dirname, "uploads"))); // make uploads folder public
 
 sequelize.sync({ alter: true }).then(() => {
   console.log("Database connected & synced");
