@@ -1,23 +1,9 @@
-// import { useState } from 'react';
-// import CustomerMenu from './components/CustomerMenu';
-// import StaffOrders from './components/StaffOrders'
 
-// function App() {
-
-//   return (
-//     <>
-//     {/* <CustomerMenu/> */}
-//         <StaffOrders/>
-
-//     </>
-//   )
-// }
-
-// export default App
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import CustomerMenu from "./components/CustomerMenu";
 import StaffOrders from "./components/StaffOrders";
+import AddMenu from "./components/addMenu";
 import { Button } from "@mui/material";
 
 function App() {
@@ -30,10 +16,14 @@ function App() {
         <Button component={Link} to="/staff" variant="contained">
           Staff
         </Button>
+        <Button component={Link} to="/add-menu" variant="contained">
+          Add-items
+        </Button>
       </div>
       <Routes>
         <Route path="/" element={<CustomerMenu />} />
         <Route path="/staff" element={<StaffOrders />} />
+        <Route path="/add-menu" element={<AddMenu />} />
       </Routes>
     </Router>
   );
