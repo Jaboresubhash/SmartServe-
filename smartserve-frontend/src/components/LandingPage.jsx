@@ -1,7 +1,5 @@
 import React from "react";
 import {
-  AppBar,
-  Toolbar,
   Typography,
   Button,
   Container,
@@ -18,34 +16,11 @@ const LandingPage = () => {
 
   return (
     <>
-      {/* ---------- HEADER ---------- */}
-      <AppBar position="static" color="primary">
-        <Toolbar>
-          <Typography
-            variant="h5"
-            sx={{ flexGrow: 1, fontWeight: "bold", letterSpacing: 1 }}
-          >
-            🍴 SmartServe Restaurant
-          </Typography>
-
-          <Button color="inherit" onClick={() => navigate("/")}>
-            Home
-          </Button>
-          <Button color="inherit" onClick={() => navigate("/menu")}>
-            Customer Menu
-          </Button>
-          <Button color="inherit" onClick={() => navigate("/addmenu")}>
-            Add Menu
-          </Button>
-          <Button color="inherit" onClick={() => navigate("/orders")}>
-            Orders
-          </Button>
-        </Toolbar>
-      </AppBar>
 
       {/* ---------- HERO SECTION ---------- */}
       <Box
         sx={{
+          width: "100vw",
           height: "60vh",
           backgroundImage:
             "url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=1470&q=80')",

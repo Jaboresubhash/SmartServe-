@@ -19,3 +19,20 @@ exports.addMenuItem = async (req, res) => {
     res.status(500).json({ error: "Failed to add menu item" });
   }
 };
+
+exports.deleteMenuItem = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const deleted = await Menu.destroy({ where: { id } });
+
+    if (deleted) {
+      res.json({ message: `Menu item with id ${id} deleted successfully` });
+    } else {
+      res.status(404).json({ message: "Menu item not found" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to delete menu item" });
+  }
+};
+

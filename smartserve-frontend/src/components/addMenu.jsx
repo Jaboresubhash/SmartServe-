@@ -77,7 +77,7 @@
 //           flexDirection: "column",
 //           backgroundColor:"red    "
 //     }}>
-      
+
 //       <Card sx={{
 //           maxWidth: 500,
 //           p: 2 ,
@@ -151,7 +151,7 @@
 //                 )}
 //               </Grid>
 
-            
+
 //             </Grid>
 //               <Grid item xs={12}>
 //                 <Button
@@ -189,7 +189,6 @@ import {
   Grid,
   MenuItem,
   Card,
-  CardContent,
   Snackbar,
   Alert,
   Box,
@@ -258,37 +257,64 @@ const AddMenu = () => {
   return (
     <Box
       sx={{
-        width: "100vw",
-        height: "100vh",
-        background: "linear-gradient(135deg, #f9fafb, #e0f7fa)",
+        minHeight: "100vh",
+        width: "96vw",
+        background: "linear-gradient(135deg, #fef6e4, #e8f5e9)",
         display: "flex",
+        flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center",
-        p: 2,
+        py: 6,
+        px: 2,
       }}
     >
+      {/* 🌟 Header Section */}
+      <Box sx={{ textAlign: "center", mb: 4 }}>
+        <Typography
+          variant="h3"
+          sx={{
+            fontWeight: 800,
+            color: "#2e7d32",
+            textShadow: "2px 2px #a5d6a7",
+          }}
+        >
+          🍴 SmartServe Restaurant
+        </Typography>
+        <Typography
+          variant="h6"
+          sx={{ mt: 1, color: "#555", fontStyle: "italic" }}
+        >
+          Welcome Chef! Add your delicious creations to the menu 🍛
+        </Typography>
+      </Box>
+
+      {/* 💳 Main Card Section */}
       <Card
         sx={{
           display: "flex",
           flexDirection: { xs: "column", md: "row" },
-          maxWidth: 900,
-          width: "100%",
-          borderRadius: 3,
-          boxShadow: 5,
+          width: "90%",
+          maxWidth: 950,
+          borderRadius: 4,
+          boxShadow: "0px 8px 20px rgba(0, 0, 0, 0.1)",
           overflow: "hidden",
           bgcolor: "#fff",
+          transition: "0.3s",
+          "&:hover": {
+            boxShadow: "0px 12px 30px rgba(0, 0, 0, 0.15)",
+          },
         }}
       >
-        {/* LEFT SIDE - IMAGE */}
+        {/* 🖼️ LEFT SIDE - Image Section */}
         <Box
           sx={{
             flex: 1,
-            backgroundColor: "#f0f0f0",
+            backgroundColor: "#fafafa",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             flexDirection: "column",
             p: 3,
+            borderRight: { md: "1px solid #ddd" },
           }}
         >
           {preview ? (
@@ -297,14 +323,14 @@ const AddMenu = () => {
               alt="Preview"
               style={{
                 width: "100%",
-                height: "300px",
+                height: "320px",
                 objectFit: "cover",
-                borderRadius: "8px",
+                borderRadius: "10px",
               }}
             />
           ) : (
             <Typography variant="subtitle1" color="textSecondary">
-              No image uploaded
+              No image uploaded yet
             </Typography>
           )}
 
@@ -315,6 +341,7 @@ const AddMenu = () => {
               mt: 2,
               textTransform: "none",
               fontWeight: 600,
+              borderRadius: 2,
             }}
           >
             {preview ? "Change Image" : "Upload Image"}
@@ -327,22 +354,29 @@ const AddMenu = () => {
           </Button>
         </Box>
 
-        {/* RIGHT SIDE - FORM */}
-        <Box sx={{ flex: 2, p: 4 }}>
+        {/* 🧾 RIGHT SIDE - Form Section */}
+        <Box
+          sx={{
+            flex: 2,
+            p: { xs: 3, md: 5 },
+            backgroundColor: "#fff",
+          }}
+        >
           <Typography
             variant="h5"
             sx={{
               fontWeight: 700,
               mb: 3,
               textAlign: "center",
-              color: "#333",
+              color: "#1b5e20",
+              letterSpacing: 1,
             }}
           >
             Add Menu Item
           </Typography>
 
           <form onSubmit={handleSubmit} encType="multipart/form-data">
-            <Grid container spacing={2}>
+            <Grid container spacing={3}>
               {/* Row 1 */}
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -352,6 +386,7 @@ const AddMenu = () => {
                   onChange={handleChange}
                   fullWidth
                   required
+                  variant="outlined"
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -363,14 +398,12 @@ const AddMenu = () => {
                   onChange={handleChange}
                   fullWidth
                   required
+                  variant="outlined"
                 />
               </Grid>
 
-  
-            </Grid>
-            <Grid >
-                          {/* Row 2 */}
-              <Grid spacing={1}>
+              {/* Row 2 */}
+              <Grid item xs={12} width={480}>
                 <TextField
                   select
                   label="Category"
@@ -379,6 +412,7 @@ const AddMenu = () => {
                   onChange={handleChange}
                   fullWidth
                   required
+                  variant="outlined"
                 >
                   <MenuItem value="Tiffins">Tiffins</MenuItem>
                   <MenuItem value="Main Course">Main Course</MenuItem>
@@ -387,22 +421,27 @@ const AddMenu = () => {
                 </TextField>
               </Grid>
 
-              <Grid item xs={12}>
+              {/* Submit Button */}
+              <Grid item xs={12} width={480}>
                 <Button
                   variant="contained"
-                  color="primary"
+                  color="success"
                   type="submit"
                   fullWidth
                   sx={{
                     mt: 2,
-                    py: 1.4,
+                    py: 1.3,
                     fontSize: "1rem",
                     fontWeight: "bold",
                     textTransform: "none",
                     borderRadius: 2,
+                    boxShadow: "0 4px 10px rgba(46,125,50,0.3)",
+                    "&:hover": {
+                      backgroundColor: "#2e7d32",
+                    },
                   }}
                 >
-                  Add Menu
+                  ➕ Add to Menu
                 </Button>
               </Grid>
             </Grid>
@@ -410,6 +449,7 @@ const AddMenu = () => {
         </Box>
       </Card>
 
+      {/* ✅ Snackbar for success/error */}
       <Snackbar
         open={openSnackbar}
         autoHideDuration={3000}
@@ -424,4 +464,3 @@ const AddMenu = () => {
 };
 
 export default AddMenu;
-
