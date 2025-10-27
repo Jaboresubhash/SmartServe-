@@ -36,3 +36,25 @@ exports.deleteMenuItem = async (req, res) => {
   }
 };
 
+// 🧩 Update menu item (this is what your frontend is calling)
+exports.updateMenu = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, price, image } = req.body;
+
+    const menuItem = await Menu.findByPk(id);
+    if (!menuItem) {
+      return res.status(404).json({ error: "Menu item not found" });
+    }
+
+    menuItem.name = name;
+    menuItem.price = price;
+    menuItem.image = image;
+    await menuItem.save();
+
+    res.json(menuItem);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to update menu item" });
+  }
+};
+

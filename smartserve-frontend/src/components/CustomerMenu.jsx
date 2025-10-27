@@ -115,18 +115,35 @@ import {
   TextField,
   Box,
   Divider,
+  Stack,
 } from "@mui/material";
 
 const CustomerMenu = () => {
   const [menu, setMenu] = useState([]);
+  const [filteredMenu, setFilteredMenu] = useState([]);
   const [cart, setCart] = useState([]);
   const [tableNo, setTableNo] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
+  // Fetch menu items
   useEffect(() => {
     API.get("/menu")
-      .then((res) => setMenu(res.data))
+      .then((res) => {
+        setMenu(res.data);
+        setFilteredMenu(res.data);
+      })
       .catch((err) => console.log(err));
   }, []);
+
+  // Filter menu based on category
+  const handleCategoryFilter = (category) => {
+    setSelectedCategory(category);
+    if (category === "All") {
+      setFilteredMenu(menu);
+    } else {
+      setFilteredMenu(menu.filter((item) => item.category === category));
+    }
+  };
 
   const addToCart = (item) => {
     setCart([...cart, { ...item, qty: 1 }]);
@@ -147,27 +164,40 @@ const CustomerMenu = () => {
   };
 
   return (
-    <Box
-      sx={{
-        backgroundColor: "#f8f9fa",
-        minHeight: "100vh",
-        padding: "40px 20px",
-      }}
-    >
+    <Box sx={{ backgroundColor: "#f8f9fa", minHeight: "100vh", p: "40px 20px" ,width:"95vw"}}>
       <Typography
         variant="h4"
         align="center"
         gutterBottom
-        sx={{
-          fontWeight: "bold",
-          color: "#333",
-          mb: 4,
-          letterSpacing: 1,
-        }}
+        sx={{ fontWeight: "bold", color: "#333", mb: 4, letterSpacing: 1 }}
       >
-        🍽️ Our Delicious Menu
+        🍴 Explore Our Menu
       </Typography>
 
+      {/* 🔹 Category Filter Buttons */}
+      <Stack direction="row" justifyContent="center" spacing={2} mb={4}>
+        {["All", "Tiffin", "Main Course", "Dessert", "Beverages"].map((cat) => (
+          <Button
+            key={cat}
+            variant={selectedCategory === cat ? "contained" : "outlined"}
+            sx={{
+              textTransform: "capitalize",
+              fontWeight: "bold",
+              backgroundColor: selectedCategory === cat ? "#00796b" : "white",
+              color: selectedCategory === cat ? "white" : "#00796b",
+              "&:hover": {
+                backgroundColor:
+                  selectedCategory === cat ? "#004d40" : "rgba(0,121,107,0.1)",
+              },
+            }}
+            onClick={() => handleCategoryFilter(cat)}
+          >
+            {cat}
+          </Button>
+        ))}
+      </Stack>
+
+      {/* 🔹 Table Number Field */}
       <Box display="flex" justifyContent="center" mb={4}>
         <TextField
           label="Enter Table Number"
@@ -177,88 +207,76 @@ const CustomerMenu = () => {
         />
       </Box>
 
+      {/* 🔹 Menu Grid */}
       <Grid container spacing={3} justifyContent="center">
-        {menu.map((item) => (
-          <Grid item xs={12} sm={6} md={4} lg={3} key={item.id}>
-            <Card
-              sx={{
-                height: 360,
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                borderRadius: 3,
-                boxShadow: "0 6px 10px rgba(0,0,0,0.1)",
-                transition: "transform 0.3s, box-shadow 0.3s",
-                backgroundColor: "#fff",
-                "&:hover": {
-                  transform: "translateY(-8px)",
-                  boxShadow: "0 10px 20px rgba(0,0,0,0.15)",
-                },
-              }}
-            >
-              {/* ✅ Image Section */}
-              <CardMedia
-                component="img"
-                height="180"
-                image={
-                  item.img
-                    ? `http://localhost:5000/uploads/${item.img}`
-                    : "https://via.placeholder.com/300x180?text=No+Image"
-                }
-                alt={item.name}
+        {filteredMenu.length > 0 ? (
+          filteredMenu.map((item) => (
+            <Grid item xs={12} sm={6} md={4} lg={3} key={item.id}>
+              <Card
                 sx={{
-                  objectFit: "cover",
-                  borderTopLeftRadius: 12,
-                  borderTopRightRadius: 12,
+                  height: 360,
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  borderRadius: 3,
+                  boxShadow: "0 6px 10px rgba(0,0,0,0.1)",
+                  transition: "transform 0.3s, box-shadow 0.3s",
+                  "&:hover": {
+                    transform: "translateY(-8px)",
+                    boxShadow: "0 10px 20px rgba(0,0,0,0.15)",
+                  },
                 }}
-              />
-
-              <CardContent sx={{ textAlign: "center" }}>
-                <Typography
-                  variant="h6"
-                  sx={{ fontWeight: 600, textTransform: "capitalize" }}
-                >
-                  {item.name}
-                </Typography>
-
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                  sx={{ mb: 1 }}
-                >
-                  {item.category}
-                </Typography>
-
-                <Divider sx={{ mb: 1 }} />
-
-                <Typography
-                  variant="body1"
-                  sx={{
-                    color: "#00796b",
-                    fontWeight: "bold",
-                    mb: 2,
-                  }}
-                >
-                  ₹{item.price}
-                </Typography>
-
-                <Button
-                  variant="contained"
-                  sx={{
-                    backgroundColor: "#ff7043",
-                    "&:hover": { backgroundColor: "#e64a19" },
-                  }}
-                  onClick={() => addToCart(item)}
-                  fullWidth
-                >
-                  Add to Cart
-                </Button>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
+              >
+                <CardMedia
+                  component="img"
+                  height="180"
+                  image={
+                    item.img
+                      ? `http://localhost:5000/uploads/${item.img}`
+                      : "https://via.placeholder.com/300x180?text=No+Image"
+                  }
+                  alt={item.name}
+                />
+                <CardContent sx={{ textAlign: "center" }}>
+                  <Typography
+                    variant="h6"
+                    sx={{ fontWeight: 600, textTransform: "capitalize" }}
+                  >
+                    {item.name}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+                    {item.category}
+                  </Typography>
+                  <Divider sx={{ mb: 1 }} />
+                  <Typography
+                    variant="body1"
+                    sx={{ color: "#00796b", fontWeight: "bold", mb: 2 }}
+                  >
+                    ₹{item.price}
+                  </Typography>
+                  <Button
+                    variant="contained"
+                    sx={{
+                      backgroundColor: "#ff7043",
+                      "&:hover": { backgroundColor: "#e64a19" },
+                    }}
+                    onClick={() => addToCart(item)}
+                    fullWidth
+                  >
+                    Add to Cart
+                  </Button>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))
+        ) : (
+          <Typography variant="h6" color="text.secondary">
+            No items available in this category.
+          </Typography>
+        )}
       </Grid>
 
+      {/* 🔹 Place Order Button */}
       {cart.length > 0 && (
         <Box textAlign="center" mt={5}>
           <Button

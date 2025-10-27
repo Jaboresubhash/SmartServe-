@@ -9,4 +9,7 @@ const upload = require("../middleware/uploadMiddleware");
 router.get("/", menuController.getAllMenu);
 router.post("/", upload.single("img"), menuController.addMenuItem);
 router.delete("/:id", menuController.deleteMenuItem);
+
+// Update menu item (also supports updating image)
+router.put("/:id", upload.single("img"), menuController.updateMenu);
 module.exports = router;

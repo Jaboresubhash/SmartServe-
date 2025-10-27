@@ -38,6 +38,7 @@ import LandingPage from "./components/LandingPage";
 import CustomerMenu from "./components/CustomerMenu";
 import StaffOrders from "./components/StaffOrders";
 import AddMenu from "./components/addMenu";
+import AdminMenuList from "./components/AdminMenuLIst";
 
 function App() {
   return (
@@ -84,6 +85,7 @@ function MainLayout() {
         <Route path="/menu" element={<CustomerMenu />} />
         <Route path="/addmenu" element={<AddMenu />} />
         <Route path="/orders" element={<StaffOrders />} />
+        <Route path="/adminmenu" element={<AdminMenuList />} />
       </Routes>
     </>
   );
