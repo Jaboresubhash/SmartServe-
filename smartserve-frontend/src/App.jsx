@@ -60,7 +60,7 @@ function MainLayout() {
             variant="h5"
             sx={{ flexGrow: 1, fontWeight: "bold", letterSpacing: 1 }}
           >
-            🍴 SmartServe Restaurant
+            <i class="fa-brands fa-web-awesome"></i> SmartServe Restaurant
           </Typography>
 
           <Button color="inherit" onClick={() => navigate("/")}>

@@ -64,26 +64,40 @@
 import React, { useEffect, useState } from "react";
 import API from "../api/api";
 import { Typography, Card, CardContent, Grid, Button, Box } from "@mui/material";
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
 
 const StaffOrders = () => {
   const [orders, setOrders] = useState([]);
 
-  const fetchOrders = () => {
-    API.get("/orders")
-      .then((res) => setOrders(res.data))
-      .catch((err) => console.log(err));
+  // Fetch all orders
+  const fetchOrders = async () => {
+    try {
+      const res = await API.get("/orders");
+      setOrders(res.data);
+    } catch (err) {
+      console.error("Error fetching orders:", err);
+    }
   };
 
   useEffect(() => {
     fetchOrders();
   }, []);
 
-  const markPrepared = (id) => {
-    API.put(`/orders/${id}`, { status: "Preparing" }).then(fetchOrders);
-  };
+  // ✅ Update order status (instant UI update)
+  const updateOrderStatus = async (id, newStatus) => {
+    try {
+      await API.put(`/orders/${id}`, { status: newStatus });
 
-  const markServed = (id) => {
-    API.put(`/orders/${id}`, { status: "Served" }).then(fetchOrders);
+      // Update UI immediately without re-fetch
+      setOrders((prevOrders) =>
+        prevOrders.map((order) =>
+          order.id === id ? { ...order, status: newStatus } : order
+        )
+      );
+    } catch (err) {
+      console.error("Error updating order:", err);
+    }
   };
 
   return (
@@ -101,7 +115,7 @@ const StaffOrders = () => {
           variant="h4"
           sx={{ fontWeight: "bold", color: "#00796b", mb: 1 }}
         >
-          🍴 Welcome to SmartServe Restaurant
+          <i class="fa-brands fa-web-awesome"></i> Welcome to SmartServe Restaurant
         </Typography>
         <Typography variant="subtitle1" color="textSecondary">
           Manage and update your table orders here
@@ -152,24 +166,27 @@ const StaffOrders = () => {
                 </ul>
               </CardContent>
 
-              <Box sx={{ display: "flex", p: 2, gap: 1 }}>
-                <Button
-                  variant="contained"
-                  color="warning"
-                  fullWidth
-                  onClick={() => markPrepared(order.id)}
-                >
-                  Mark Preparing
-                </Button>
-                <Button
-                  variant="contained"
-                  color="success"
-                  fullWidth
-                  onClick={() => markServed(order.id)}
-                >
-                  Mark Served
-                </Button>
-              </Box>
+              {/* BUTTONS */}
+                <Box sx={{ display: "flex", p: 2, gap: 1 }}>
+                  <Button
+                    variant="contained"
+                    color="warning"
+                    fullWidth
+                    onClick={() => updateOrderStatus(order.id, "Preparing")}
+                    disabled={order.status === "Preparing" || order.status === "Served"}
+                  >
+                    Mark Preparing
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="success"
+                    fullWidth
+                    onClick={() => updateOrderStatus(order.id, "Served")}
+                    disabled={order.status === "Served"}
+                  >
+                    Mark Served
+                  </Button>
+                </Box>
             </Card>
           </Grid>
         ))}

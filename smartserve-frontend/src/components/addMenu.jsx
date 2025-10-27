@@ -277,7 +277,7 @@ const AddMenu = () => {
             textShadow: "2px 2px #a5d6a7",
           }}
         >
-          🍴 SmartServe Restaurant
+          <i class="fa-brands fa-web-awesome"></i> SmartServe Restaurant
         </Typography>
         <Typography
           variant="h6"
