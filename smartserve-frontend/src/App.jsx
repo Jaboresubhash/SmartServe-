@@ -39,6 +39,7 @@ import CustomerMenu from "./components/CustomerMenu";
 import StaffOrders from "./components/StaffOrders";
 import AddMenu from "./components/addMenu";
 import AdminMenuList from "./components/AdminMenuLIst";
+import AdminLandingPage from "./components/StafLandingPage";
 
 function App() {
   return (
@@ -70,12 +71,12 @@ function MainLayout() {
           <Button color="inherit" onClick={() => navigate("/menu")}>
             Customer Menu
           </Button>
-          <Button color="inherit" onClick={() => navigate("/addmenu")}>
-            Add Menu
+          <Button color="inherit" onClick={() => navigate("/staffpage")}>
+            Admin
           </Button>
-          <Button color="inherit" onClick={() => navigate("/orders")}>
+          {/* <Button color="inherit" onClick={() => navigate("/orders")}>
             Orders
-          </Button>
+          </Button> */}
         </Toolbar>
       </AppBar>
 
@@ -86,6 +87,8 @@ function MainLayout() {
         <Route path="/addmenu" element={<AddMenu />} />
         <Route path="/orders" element={<StaffOrders />} />
         <Route path="/adminmenu" element={<AdminMenuList />} />
+        <Route path="/staffpage" element={<AdminLandingPage />} />
+
       </Routes>
     </>
   );
