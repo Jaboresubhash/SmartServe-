@@ -11,6 +11,11 @@ import {
   DialogContent,
   DialogActions,
   TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Box,
 } from "@mui/material";
 import API from "../api/api";
 
@@ -18,12 +23,21 @@ const AdminMenuList = () => {
   const [menu, setMenu] = useState([]);
   const [open, setOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
-const [formData, setFormData] = useState({
-  name: "",
-  price: "",
-  category: "",
-  image: null, // for uploaded file
-});
+  const [formData, setFormData] = useState({
+    name: "",
+    price: "",
+    category: "",
+    img: null,
+  });
+
+  // Categories — you can edit these
+  const categories = [
+    "Starters",
+    "Main Course",
+    "Desserts",
+    "Drinks",
+    "Roti & Tandoori",
+  ];
 
   // Fetch all menu items
   const fetchMenu = async () => {
@@ -52,20 +66,31 @@ const [formData, setFormData] = useState({
   };
 
   const handleEdit = (item) => {
-  setSelectedItem(item);
-  setFormData({
-    name: item.name,
-    price: item.price,
-    category: item.category,
-    image: item.image || null, // existing image
-  });
-  setOpen(true);
-};
-
+    setSelectedItem(item);
+    setFormData({
+      name: item.name,
+      price: item.price,
+      category: item.category,
+      img: null, // reset file
+    });
+    setOpen(true);
+  };
 
   const handleUpdate = async () => {
     try {
-      await API.put(`/menu/${selectedItem.id}`, formData);
+      const updateData = new FormData();
+      updateData.append("name", formData.name);
+      updateData.append("price", formData.price);
+      updateData.append("category", formData.category);
+
+      if (formData.img instanceof File) {
+        updateData.append("img", formData.img);
+      }
+
+      await API.put(`/menu/${selectedItem.id}`, updateData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
       setOpen(false);
       fetchMenu();
     } catch (error) {
@@ -74,29 +99,42 @@ const [formData, setFormData] = useState({
   };
 
   return (
-    <div style={{ padding: 20 }}>
-      <Typography variant="h4" gutterBottom>
+    <Box sx={{ padding: 4, backgroundColor: "#f8f9fa", minHeight: "100vh" }}>
+      <Typography variant="h4" align="center" gutterBottom sx={{ fontWeight: "bold" }}>
         🍴 Admin Menu Management
       </Typography>
 
-      <Grid container spacing={2}>
+      <Grid container spacing={3} justifyContent="center">
         {menu.map((item) => (
           <Grid item xs={12} sm={6} md={4} key={item.id}>
-            <Card sx={{ p: 2 }}>
-              {item.image && (
+            <Card
+              sx={{
+                borderRadius: 3,
+                boxShadow: 3,
+                transition: "0.3s",
+                "&:hover": { boxShadow: 6 },
+              }}
+            >
+              {item.img && (
                 <CardMedia
                   component="img"
-                  height="180"
-                  image={`http://localhost:3001/uploads/${item.image}`}
+                  height="200"
+                  image={`http://localhost:5000/uploads/${item.img}`}
                   alt={item.name}
                 />
               )}
-              <CardContent>
-                <Typography variant="h6">{item.name}</Typography>
-                <Typography color="text.secondary">
+              <CardContent sx={{ textAlign: "center" }}>
+                <Typography variant="h6" gutterBottom>
+                  {item.name}
+                </Typography>
+                <Typography variant="body1" color="text.secondary">
+                  Category: <b>{item.category}</b>
+                </Typography>
+                <Typography variant="body1" color="primary" sx={{ mt: 1 }}>
                   ₹{item.price}
                 </Typography>
-                <div style={{ marginTop: 10 }}>
+
+                <Box sx={{ mt: 2 }}>
                   <Button
                     variant="contained"
                     color="primary"
@@ -112,7 +150,7 @@ const [formData, setFormData] = useState({
                   >
                     Delete
                   </Button>
-                </div>
+                </Box>
               </CardContent>
             </Card>
           </Grid>
@@ -120,54 +158,75 @@ const [formData, setFormData] = useState({
       </Grid>
 
       {/* Edit Dialog */}
-      <Dialog open={open} onClose={() => setOpen(false)}>
-        <DialogTitle>Edit Menu Item</DialogTitle>
-        <DialogContent>
+      <Dialog open={open} onClose={() => setOpen(false)} maxWidth="xs" fullWidth>
+        <DialogTitle
+          sx={{
+            textAlign: "center",
+            fontWeight: "bold",
+            backgroundColor: "#1976d2",
+            color: "white",
+          }}
+        >
+          Edit Menu Item
+        </DialogTitle>
+        <DialogContent sx={{ p: 3 }}>
           <TextField
             label="Name"
             fullWidth
             margin="dense"
             value={formData.name}
-            onChange={(e) =>
-              setFormData({ ...formData, name: e.target.value })
-            }
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           />
+
           <TextField
             label="Price"
             fullWidth
             margin="dense"
+            type="number"
             value={formData.price}
-            onChange={(e) =>
-              setFormData({ ...formData, price: e.target.value })
-            }
+            onChange={(e) => setFormData({ ...formData, price: e.target.value })}
           />
-             <TextField
-            label="category"
-            fullWidth
-            margin="dense"
-            value={formData.category}
-            onChange={(e) =>
-              setFormData({ ...formData, category: e.target.value })
-            }
-          />
-          <TextField
-            label="Image Name"
-            fullWidth
-            margin="dense"
-            value={formData.image}
-            onChange={(e) =>
-              setFormData({ ...formData, image: e.target.value })
-            }
-          />
+
+          {/* Category Dropdown */}
+          <FormControl fullWidth margin="dense">
+            <InputLabel>Category</InputLabel>
+            <Select
+              value={formData.category}
+              label="Category"
+              onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+            >
+              {categories.map((cat) => (
+                <MenuItem key={cat} value={cat}>
+                  {cat}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+          <Box sx={{ mt: 2, textAlign: "center" }}>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => setFormData({ ...formData, img: e.target.files[0] })}
+              style={{
+                border: "1px solid #ccc",
+                padding: "8px",
+                borderRadius: "8px",
+                width: "100%",
+              }}
+            />
+          </Box>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setOpen(false)}>Cancel</Button>
+        <DialogActions sx={{ justifyContent: "center", pb: 2 }}>
+          <Button onClick={() => setOpen(false)} variant="outlined" color="error">
+            Cancel
+          </Button>
           <Button onClick={handleUpdate} variant="contained" color="primary">
             Update
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </Box>
   );
 };
 

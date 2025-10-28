@@ -12,4 +12,5 @@ router.delete("/:id", menuController.deleteMenuItem);
 
 // Update menu item (also supports updating image)
 router.put("/:id", upload.single("img"), menuController.updateMenu);
+
 module.exports = router;
