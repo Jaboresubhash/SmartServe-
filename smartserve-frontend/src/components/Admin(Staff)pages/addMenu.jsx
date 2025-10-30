@@ -193,7 +193,7 @@ import {
   Alert,
   Box,
 } from "@mui/material";
-import API from "../api/api";
+import API from "../../api/api";
 
 const AddMenu = () => {
   const [menuData, setMenuData] = useState({

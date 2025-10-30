@@ -34,12 +34,12 @@
 // export default App;
 import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import { AppBar, Toolbar, Typography, Button } from "@mui/material";
-import LandingPage from "./components/LandingPage";
-import CustomerMenu from "./components/CustomerMenu";
-import StaffOrders from "./components/StaffOrders";
-import AddMenu from "./components/addMenu";
-import AdminMenuList from "./components/AdminMenuLIst";
-import AdminLandingPage from "./components/StafLandingPage";
+import LandingPage from "./components/Customerpages/LandingPage";
+import CustomerMenu from "./components/Customerpages/CustomerMenu";
+import StaffOrders from "./components/Admin(Staff)pages/StaffOrders";
+import AddMenu from "./components/Admin(Staff)pages/addMenu";
+import AdminMenuList from "./components/Admin(Staff)pages/AdminMenuLIst";
+import AdminLandingPage from "./components/Admin(Staff)pages/StafLandingPage";
 
 function App() {
   return (

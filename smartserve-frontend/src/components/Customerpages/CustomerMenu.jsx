@@ -104,7 +104,7 @@
 
 // export default CustomerMenu;
 import React, { useEffect, useState } from "react";
-import API from "../api/api";
+import API from "../../api/api";
 import {
   Button,
   Card,

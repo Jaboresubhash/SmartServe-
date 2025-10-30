@@ -17,7 +17,7 @@ import {
   MenuItem,
   Box,
 } from "@mui/material";
-import API from "../api/api";
+import API from "../../api/api";
 
 const AdminMenuList = () => {
   const [menu, setMenu] = useState([]);

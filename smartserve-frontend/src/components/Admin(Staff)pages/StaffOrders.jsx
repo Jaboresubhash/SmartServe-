@@ -62,7 +62,7 @@
 
 // export default StaffOrders;
 import React, { useEffect, useState } from "react";
-import API from "../api/api";
+import API from "../../api/api";
 import { Typography, Card, CardContent, Grid, Button, Box } from "@mui/material";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
