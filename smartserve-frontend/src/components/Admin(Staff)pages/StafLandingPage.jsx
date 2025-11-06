@@ -9,6 +9,7 @@ const LandingPage = () => {
     <div
       style={{
         minHeight: "100vh",
+        width:"65vw",
         background: "linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)",
         padding: "50px",
         textAlign: "center",

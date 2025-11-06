@@ -258,13 +258,13 @@ const AddMenu = () => {
     <Box
       sx={{
         minHeight: "100vh",
-        width: "96vw",
+        width: "74vw",
         background: "linear-gradient(135deg, #fef6e4, #e8f5e9)",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        py: 6,
-        px: 2,
+        // py: 6,
+        // px: 2,
       }}
     >
       {/* 🌟 Header Section */}
@@ -292,7 +292,7 @@ const AddMenu = () => {
         sx={{
           display: "flex",
           flexDirection: { xs: "column", md: "row" },
-          width: "90%",
+          width: "80%",
           maxWidth: 950,
           borderRadius: 4,
           boxShadow: "0px 8px 20px rgba(0, 0, 0, 0.1)",

@@ -17,7 +17,7 @@ const DashboardLayout = () => {
   const navigate = useNavigate();
 
   return (
-    <Box sx={{ display: "flex", height: "100vh", bgcolor: "#f5f6fa" }}>
+    <Box sx={{ display: "flex", height: "41vw",width: "100vw", bgcolor: "#f5f6fa" }}>
       {/* ===== Left Sidebar ===== */}
       <Box
         sx={{

@@ -1,38 +1,9 @@
-
-// import React from "react";
-// import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-// import CustomerMenu from "./components/CustomerMenu";
-// import StaffOrders from "./components/StaffOrders";
-// import AddMenu from "./components/addMenu";
-// import { Button } from "@mui/material";
-// import LandingPage from "./components/LandingPage";
-
-// function App() {
-//   return (
-//     <Router>
-//       <div style={{ padding: 20 }}>
-//         <Button component={Link} to="/" variant="contained" style={{ marginRight: 10 }}>
-//           Customer
-//         </Button>
-//         <Button component={Link} to="/staff" variant="contained">
-//           Staff
-//         </Button>
-//         <Button component={Link} to="/add-menu" variant="contained">
-//           Add-items
-//         </Button>
-//       </div>
-//       <Routes>
-//         <Route path="/" element={<CustomerMenu />} />
-//         <Route path="/staff" element={<StaffOrders />} />
-//         <Route path="/add-menu" element={<AddMenu />} />
-//         <Route path="/LandingPage" element={<LandingPage />} />
-//       </Routes>
-//     </Router>
-//   );
-// }
-
-// export default App;
-import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+} from "react-router-dom";
 import { AppBar, Toolbar, Typography, Button } from "@mui/material";
 import LandingPage from "./components/Customerpages/LandingPage";
 import CustomerMenu from "./components/Customerpages/CustomerMenu";
@@ -40,6 +11,7 @@ import StaffOrders from "./components/Admin(Staff)pages/StaffOrders";
 import AddMenu from "./components/Admin(Staff)pages/addMenu";
 import AdminMenuList from "./components/Admin(Staff)pages/AdminMenuLIst";
 import AdminLandingPage from "./components/Admin(Staff)pages/StafLandingPage";
+import DashboardLayout from "./components/Admin(Staff)pages/DashboardLayout";
 
 function App() {
   return (
@@ -49,7 +21,6 @@ function App() {
   );
 }
 
-// Separate layout component so we can use `useNavigate`
 function MainLayout() {
   const navigate = useNavigate();
 
@@ -62,7 +33,7 @@ function MainLayout() {
             variant="h5"
             sx={{ flexGrow: 1, fontWeight: "bold", letterSpacing: 1 }}
           >
-            <i class="fa-brands fa-web-awesome"></i> SmartServe Restaurant
+            SmartServe Restaurant
           </Typography>
 
           <Button color="inherit" onClick={() => navigate("/")}>
@@ -71,28 +42,28 @@ function MainLayout() {
           <Button color="inherit" onClick={() => navigate("/menu")}>
             Customer Menu
           </Button>
-          <Button color="inherit" onClick={() => navigate("/staffpage")}>
+          <Button color="inherit" onClick={() => navigate("/dashboard")}>
             Admin
           </Button>
-          {/* <Button color="inherit" onClick={() => navigate("/orders")}>
-            Orders
-          </Button> */}
         </Toolbar>
       </AppBar>
 
       {/* ---------- ROUTES ---------- */}
       <Routes>
+        {/* Customer Pages */}
         <Route path="/" element={<LandingPage />} />
         <Route path="/menu" element={<CustomerMenu />} />
-        <Route path="/addmenu" element={<AddMenu />} />
-        <Route path="/orders" element={<StaffOrders />} />
-        <Route path="/adminmenu" element={<AdminMenuList />} />
-        <Route path="/staffpage" element={<AdminLandingPage />} />
 
+        {/* Dashboard Routes */}
+        <Route path="/dashboard" element={<DashboardLayout />}>
+          <Route index element={<AdminLandingPage />} />
+          <Route path="addmenu" element={<AddMenu />} />
+          <Route path="adminmenu" element={<AdminMenuList />} />
+          <Route path="orders" element={<StaffOrders />} />
+        </Route>
       </Routes>
     </>
   );
 }
 
 export default App;
-

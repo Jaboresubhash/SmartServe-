@@ -106,11 +106,11 @@ const StaffOrders = () => {
         padding: 4,
         background: "linear-gradient(135deg, #f9fafb, #e0f7fa)",
         minHeight: "100vh",
-        width:"94vw"
+        width:"68vw"
       }}
     >
       {/* HEADER */}
-      <Box sx={{ textAlign: "center", mb: 4 }}>
+      <Box sx={{ textAlign: "center", mb: 3 }}>
         <Typography
           variant="h4"
           sx={{ fontWeight: "bold", color: "#00796b", mb: 1 }}
