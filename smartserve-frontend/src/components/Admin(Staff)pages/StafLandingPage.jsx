@@ -56,7 +56,7 @@ const LandingPage = () => {
                 variant="contained"
                 color="primary"
                 sx={{ mt: 2 }}
-                onClick={() => navigate("/addmenu")}
+                onClick={() => navigate("/dashboard/addmenu")}
               >
                 Go to Add Menu
               </Button>
@@ -86,7 +86,7 @@ const LandingPage = () => {
                 variant="contained"
                 color="secondary"
                 sx={{ mt: 2 }}
-                onClick={() => navigate("/adminmenu")}
+                onClick={() => navigate("/dashboard/adminmenu")}
               >
                 Go to Admin Menu
               </Button>
@@ -116,7 +116,7 @@ const LandingPage = () => {
                 variant="contained"
                 color="success"
                 sx={{ mt: 2 }}
-                onClick={() => navigate("/orders")}
+                onClick={() => navigate("/dashboard/orders")}
               >
                 Go to Orders
               </Button>

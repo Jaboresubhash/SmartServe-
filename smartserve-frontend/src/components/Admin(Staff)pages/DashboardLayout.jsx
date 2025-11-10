@@ -44,17 +44,17 @@ const DashboardLayout = () => {
           </Typography>
 
           <List>
-            <ListItem button onClick={() => navigate("/dashboard/addmenu")}>
+            <ListItem button onClick={() => navigate("/dashboard/addmenu")} sx={{":hover":{ backgroundColor: "#e64a19" }}}>
               <MenuBookIcon sx={{ mr: 2 }} />
               <ListItemText primary="Add Menu" />
             </ListItem>
 
-            <ListItem button onClick={() => navigate("/dashboard/adminmenu")}>
+            <ListItem button onClick={() => navigate("/dashboard/adminmenu")}sx={{":hover":{ backgroundColor: "#e64a19" }}}>
               <EditNoteIcon sx={{ mr: 2 }} />
               <ListItemText primary="Manage Menu" />
             </ListItem>
 
-            <ListItem button onClick={() => navigate("/dashboard/orders")}>
+            <ListItem button onClick={() => navigate("/dashboard/orders")}sx={{":hover":{ backgroundColor: "#e64a19" }}}>
               <ReceiptLongIcon sx={{ mr: 2 }} />
               <ListItemText primary="Orders" />
             </ListItem>
@@ -71,7 +71,7 @@ const DashboardLayout = () => {
       </Box>
 
       {/* ===== Right Content (Dynamic Area) ===== */}
-      <Box sx={{ flexGrow: 1, p: 4, overflowY: "auto" }}>
+      <Box sx={{ flexGrow: 1, p:2, overflowY: "auto" ,width: "1000"}}>
         <Outlet />
       </Box>
     </Box>

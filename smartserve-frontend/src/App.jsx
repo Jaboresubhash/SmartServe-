@@ -10,8 +10,9 @@ import CustomerMenu from "./components/Customerpages/CustomerMenu";
 import StaffOrders from "./components/Admin(Staff)pages/StaffOrders";
 import AddMenu from "./components/Admin(Staff)pages/addMenu";
 import AdminMenuList from "./components/Admin(Staff)pages/AdminMenuLIst";
-import AdminLandingPage from "./components/Admin(Staff)pages/StafLandingPage";
+import StafLandingPage from "./components/Admin(Staff)pages/StafLandingPage";
 import DashboardLayout from "./components/Admin(Staff)pages/DashboardLayout";
+import theme from "./theme";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function MainLayout() {
   const navigate = useNavigate();
 
   return (
+    
     <>
       {/* ---------- HEADER ---------- */}
       <AppBar position="static" color="primary">
@@ -56,7 +58,7 @@ function MainLayout() {
 
         {/* Dashboard Routes */}
         <Route path="/dashboard" element={<DashboardLayout />}>
-          <Route index element={<AdminLandingPage />} />
+          <Route index element={<StafLandingPage />} />
           <Route path="addmenu" element={<AddMenu />} />
           <Route path="adminmenu" element={<AdminMenuList />} />
           <Route path="orders" element={<StaffOrders />} />

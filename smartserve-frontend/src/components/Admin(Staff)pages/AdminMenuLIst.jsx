@@ -99,7 +99,7 @@ const AdminMenuList = () => {
   };
 
   return (
-    <Box sx={{ padding: 4, backgroundColor: "#f8f9fa", minHeight: "100vh" }}>
+    <Box sx={{ padding: 4, backgroundColor: "#f8f9fa", minHeight: "100vh",width:"72vw" }}>
       <Typography variant="h4" align="center" gutterBottom sx={{ fontWeight: "bold" }}>
         🍴 Admin Menu Management
       </Typography>
@@ -109,6 +109,7 @@ const AdminMenuList = () => {
           <Grid item xs={12} sm={6} md={4} key={item.id}>
             <Card
               sx={{
+                width:250,
                 borderRadius: 3,
                 boxShadow: 3,
                 transition: "0.3s",
@@ -119,6 +120,7 @@ const AdminMenuList = () => {
                 <CardMedia
                   component="img"
                   height="200"
+                  
                   image={`http://localhost:5000/uploads/${item.img}`}
                   alt={item.name}
                 />

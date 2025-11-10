@@ -104,13 +104,14 @@ const StaffOrders = () => {
     <Box
       sx={{
         padding: 4,
+        paddingRight:0,
         background: "linear-gradient(135deg, #f9fafb, #e0f7fa)",
         minHeight: "100vh",
-        width:"68vw"
+        width:"74vw"
       }}
     >
       {/* HEADER */}
-      <Box sx={{ textAlign: "center", mb: 3 }}>
+      <Box sx={{ textAlign: "center", mb: 3 ,}}>
         <Typography
           variant="h4"
           sx={{ fontWeight: "bold", color: "#00796b", mb: 1 }}
@@ -128,7 +129,7 @@ const StaffOrders = () => {
             <Card
               sx={{
                 height: "100%", 
-               
+                width:"20vw",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
