@@ -5,6 +5,7 @@ const { sequelize } = require("./models");
 const menuRoutes = require("./routes/menuRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 const path = require("path");
+const adminRoutes = require("./routes/adminRoutes");
 
 
 const app = express();
@@ -14,6 +15,7 @@ app.use(bodyParser.json());
 app.use("/api/menu", menuRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/uploads", express.static(path.join(__dirname, "uploads"))); // make uploads folder public
+app.use("/api/admin", adminRoutes);
 
 sequelize.sync({ alter: true }).then(() => {
   console.log("Database connected & synced");

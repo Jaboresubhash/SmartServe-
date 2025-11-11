@@ -4,6 +4,7 @@ import {
   Route,
   useNavigate,
 } from "react-router-dom";
+require("dotenv").config();
 import { AppBar, Toolbar, Typography, Button } from "@mui/material";
 import LandingPage from "./components/Customerpages/LandingPage";
 import CustomerMenu from "./components/Customerpages/CustomerMenu";
@@ -12,7 +13,7 @@ import AddMenu from "./components/Admin(Staff)pages/addMenu";
 import AdminMenuList from "./components/Admin(Staff)pages/AdminMenuLIst";
 import StafLandingPage from "./components/Admin(Staff)pages/StafLandingPage";
 import DashboardLayout from "./components/Admin(Staff)pages/DashboardLayout";
-import theme from "./theme";
+
 
 function App() {
   return (
