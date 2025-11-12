@@ -1,19 +1,101 @@
+// import {
+//   BrowserRouter as Router,
+//   Routes,
+//   Route,
+//   useNavigate,
+// } from "react-router-dom";
+// // require("dotenv").config();
+// import { AppBar, Toolbar, Typography, Button } from "@mui/material";
+// import LandingPage from "./components/Customerpages/LandingPage";
+// import CustomerMenu from "./components/Customerpages/CustomerMenu";
+// import StaffOrders from "./components/Admin(Staff)pages/StaffOrders";
+// import AddMenu from "./components/Admin(Staff)pages/addMenu";
+// import AdminMenuList from "./components/Admin(Staff)pages/AdminMenuLIst";
+// import StafLandingPage from "./components/Admin(Staff)pages/StafLandingPage";
+// import DashboardLayout from "./components/Admin(Staff)pages/DashboardLayout";
+// import adminlogin from "./components/Admin(Staff)pages/AdminLogin"
+
+
+// function App() {
+//   return (
+//     <Router>
+//       <MainLayout />
+//     </Router>
+//   );
+// }
+
+// function MainLayout() {
+//   const navigate = useNavigate();
+
+//   return (
+    
+//     <>
+//       {/* ---------- HEADER ---------- */}
+//       <AppBar position="static" color="primary">
+//         <Toolbar>
+//           <Typography
+//             variant="h5"
+//             sx={{ flexGrow: 1, fontWeight: "bold", letterSpacing: 1 }}
+//           >
+//             SmartServe Restaurant
+//           </Typography>
+
+//           <Button color="inherit" onClick={() => navigate("/")}>
+//             Home
+//           </Button>
+//           <Button color="inherit" onClick={() => navigate("/menu")}>
+//             Customer Menu
+//           </Button>
+//           <Button color="inherit" onClick={() => navigate("/dashboard")}>
+//             Admin
+//           </Button>
+//         </Toolbar>
+//       </AppBar>
+
+//       {/* ---------- ROUTES ---------- */}
+//       <Routes>
+//         {/* Customer Pages */}
+//         <Route path="/" element={<LandingPage />} />
+//         <Route path="/menu" element={<CustomerMenu />} />
+    
+
+//         {/* Dashboard Routes */}
+//         <Route path="/dashboard" element={<DashboardLayout />}>
+//           <Route index element={<StafLandingPage />} />
+//           <Route path="addmenu" element={<AddMenu />} />
+//           <Route path="adminmenu" element={<AdminMenuList />} />
+//           <Route path="orders" element={<StaffOrders />} />
+//         </Route>
+        
+//       </Routes>
+//           < Routes path="/adminregister" element={adminregister}/>
+//           < Routes path="/adminlogin" element={adminlogin}/>
+
+//     </>
+//   );
+// }
+
+// export default App;
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   useNavigate,
+  Navigate,
 } from "react-router-dom";
-require("dotenv").config();
 import { AppBar, Toolbar, Typography, Button } from "@mui/material";
+
 import LandingPage from "./components/Customerpages/LandingPage";
 import CustomerMenu from "./components/Customerpages/CustomerMenu";
+
 import StaffOrders from "./components/Admin(Staff)pages/StaffOrders";
 import AddMenu from "./components/Admin(Staff)pages/addMenu";
 import AdminMenuList from "./components/Admin(Staff)pages/AdminMenuLIst";
 import StafLandingPage from "./components/Admin(Staff)pages/StafLandingPage";
 import DashboardLayout from "./components/Admin(Staff)pages/DashboardLayout";
 
+import AdminLogin from "./components/Admin(Staff)pages/AdminLogin";
+import AdminRegister from "./components/Admin(Staff)pages/AdminRegister";
 
 function App() {
   return (
@@ -27,7 +109,6 @@ function MainLayout() {
   const navigate = useNavigate();
 
   return (
-    
     <>
       {/* ---------- HEADER ---------- */}
       <AppBar position="static" color="primary">
@@ -45,7 +126,7 @@ function MainLayout() {
           <Button color="inherit" onClick={() => navigate("/menu")}>
             Customer Menu
           </Button>
-          <Button color="inherit" onClick={() => navigate("/dashboard")}>
+          <Button color="inherit" onClick={() => navigate("/admin/login")}>
             Admin
           </Button>
         </Toolbar>
@@ -53,20 +134,40 @@ function MainLayout() {
 
       {/* ---------- ROUTES ---------- */}
       <Routes>
-        {/* Customer Pages */}
+        {/* ---- CUSTOMER ROUTES ---- */}
         <Route path="/" element={<LandingPage />} />
         <Route path="/menu" element={<CustomerMenu />} />
 
-        {/* Dashboard Routes */}
-        <Route path="/dashboard" element={<DashboardLayout />}>
+        {/* ---- ADMIN AUTH ROUTES ---- */}
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin/register" element={<AdminRegister />} />
+
+        {/* ---- PROTECTED DASHBOARD ---- */}
+        <Route
+          path="/dashboard/*"
+          element={
+            <ProtectedRoute>
+              <DashboardLayout />
+            </ProtectedRoute>
+          }
+        >
           <Route index element={<StafLandingPage />} />
           <Route path="addmenu" element={<AddMenu />} />
           <Route path="adminmenu" element={<AdminMenuList />} />
           <Route path="orders" element={<StaffOrders />} />
         </Route>
+
+        {/* ---- CATCH-ALL ---- */}
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </>
   );
+}
+
+/* ---------- PROTECTED ROUTE COMPONENT ---------- */
+function ProtectedRoute({ children }) {
+  const token = localStorage.getItem("adminToken");
+  return token ? children : <Navigate to="/admin/login" replace />;
 }
 
 export default App;
