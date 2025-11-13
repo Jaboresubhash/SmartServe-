@@ -20,7 +20,7 @@ const AdminRegister = () => {
   };
 
   return (
-    <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh" bgcolor="#f8f9fa">
+    <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh" minWidth="100vw" bgcolor="#f8f9fa">
       <Card sx={{ width: 400, p: 3, boxShadow: 4 }}>
         <CardContent>
           <Typography variant="h5" align="center" gutterBottom>

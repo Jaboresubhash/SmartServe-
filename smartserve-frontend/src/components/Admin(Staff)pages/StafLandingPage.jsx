@@ -145,11 +145,14 @@ const LandingPage = () => {
               <Button
                 variant="contained"
                 color="error"
-                sx={{ mt: 2 }}
-                onClick={() => navigate("/")}
+                onClick={() => {
+                  localStorage.removeItem("adminToken");
+                  navigate("/admin/login");
+                }}
               >
                 Logout
               </Button>
+
             </CardContent>
           </Card>
         </Grid>

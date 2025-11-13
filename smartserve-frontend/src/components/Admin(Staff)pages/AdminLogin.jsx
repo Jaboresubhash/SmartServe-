@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { TextField, Button, Card, CardContent, Typography, Box, Snackbar, Alert, Link } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate  } from "react-router-dom";
 import API from "../../api/api";
 // import adminregister from "./components/Admin(Staff)pages/AdminRegister"
 
@@ -10,7 +10,16 @@ const AdminLogin = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [alert, setAlert] = useState({ open: false, message: "", severity: "" });
 
-  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+   // ✅ If already logged in, redirect directly to dashboard
+  useEffect(() => {
+    const token = localStorage.getItem("adminToken");
+    if (token) {
+      navigate("/dashboard");
+    }
+  }, [navigate]);
+
+  const handleChange = (e) => 
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,7 +34,7 @@ const AdminLogin = () => {
   };
 
   return (
-    <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh" bgcolor="#f8f9fa">
+    <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh" minWidth="100vw" bgcolor="#f8f9fa">
       <Card sx={{ width: 400, p: 3, boxShadow: 4 }}>
         <CardContent>
           <Typography variant="h5" align="center" gutterBottom>
