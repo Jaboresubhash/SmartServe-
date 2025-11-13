@@ -6,7 +6,8 @@ const AdminRegister = () => {
   const [formData, setFormData] = useState({ name: "", email: "", password: "" });
   const [alert, setAlert] = useState({ open: false, message: "", severity: "" });
 
-  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleChange = (e) => 
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,9 +28,12 @@ const AdminRegister = () => {
             🧑‍🍳 Admin Registration
           </Typography>
           <form onSubmit={handleSubmit}>
-            <TextField fullWidth label="Name" name="name" margin="normal" value={formData.name} onChange={handleChange} required />
-            <TextField fullWidth label="Email" name="email" type="email" margin="normal" value={formData.email} onChange={handleChange} required />
-            <TextField fullWidth label="Password" name="password" type="password" margin="normal" value={formData.password} onChange={handleChange} required />
+            <TextField fullWidth label="Name" name="name" margin="normal" 
+            value={formData.name} onChange={handleChange} required />
+            <TextField fullWidth label="Email" name="email" type="email" margin="normal" 
+            value={formData.email} onChange={handleChange} required />
+            <TextField fullWidth label="Password" name="password" type="password" margin="normal" 
+            value={formData.password} onChange={handleChange} required />
             <Button variant="contained" color="primary" type="submit" fullWidth sx={{ mt: 2 }}>
               Register
             </Button>

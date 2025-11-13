@@ -1,9 +1,17 @@
-import React from "react";
-import { Button, Card, CardContent, Grid, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Button, Card, CardContent, Grid, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+
+
 
 const LandingPage = () => {
   const navigate = useNavigate();
+   const [adminName, setAdminName] = useState("");
+
+   useEffect(() => {
+    const name = localStorage.getItem("adminName");
+    setAdminName(name || "Admin");
+  }, []);
 
   return (
     <div
@@ -28,7 +36,7 @@ const LandingPage = () => {
          <i class="fa-brands fa-web-awesome"></i> SmartServe Restaurant
       </Typography>
       <Typography variant="h5" color="text.secondary" gutterBottom>
-        Welcome, Admin / Staff 👋 <br />
+        Welcome, {adminName}👋 <br />
         Manage your restaurant with ease and efficiency.
       </Typography>
 

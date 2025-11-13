@@ -26,6 +26,7 @@ const AdminLogin = () => {
     try {
       const res = await API.post("/admin/login", formData);
       localStorage.setItem("adminToken", res.data.token);
+      localStorage.setItem("adminName", res.data.admin.name);
       setAlert({ open: true, message: "Login successful!", severity: "success" });
       setTimeout(() => navigate("/dashboard"), 1000);
     } catch (error) {
