@@ -22,7 +22,7 @@ const DashboardLayout = () => {
       <Box
         sx={{
           width: 250,
-          bgcolor: "#2c3e50",
+          backgroundColor: "#1C1C1C",
           color: "white",
           display: "flex",
           flexDirection: "column",

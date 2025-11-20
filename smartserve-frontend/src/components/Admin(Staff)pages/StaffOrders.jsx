@@ -105,7 +105,7 @@ const StaffOrders = () => {
       sx={{
         padding: 4,
         paddingRight:0,
-        background: "linear-gradient(135deg, #f9fafb, #e0f7fa)",
+        // background: "linear-gradient(135deg, #f9fafb, #e0f7fa)",
         minHeight: "100vh",
         width:"74vw"
       }}
