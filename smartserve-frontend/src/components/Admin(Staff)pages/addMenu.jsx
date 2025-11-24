@@ -259,12 +259,9 @@ const AddMenu = () => {
       sx={{
         minHeight: "100vh",
         width: "74vw",
-        // background: "linear-gradient(135deg, #fef6e4, #e8f5e9)",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        // py: 6,
-        // px: 2,
       }}
     >
       {/* 🌟 Header Section */}
